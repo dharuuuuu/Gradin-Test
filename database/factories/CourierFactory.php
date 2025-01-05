@@ -16,7 +16,7 @@ class CourierFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'phone' => $this->faker->phoneNumber,
             'level' => $this->faker->numberBetween(1, 5),
-            'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'), // Waktu acak dalam 1 tahun terakhir
+            'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'), 
             'updated_at' => now(),
         ];
     }

@@ -9,22 +9,18 @@ class CourierController extends Controller
 {
     public function index(Request $request)
     {
-        // Query dasar
         $query = Courier::query();
 
-        // Sorting
         if ($request->sort_by === 'registered_at') {
             $query->orderBy('created_at', 'desc');
         } else {
             $query->orderBy('name', 'asc');
         }
 
-        // Filter berdasarkan level
         if ($request->has('level') && $request->level === '2,3') {
             $query->whereIn('level', [2, 3]);
         }
 
-        // Search
         if ($request->has('search')) {
             $keywords = explode(' ', $request->search);
             $query->where(function ($q) use ($keywords) {
@@ -34,7 +30,6 @@ class CourierController extends Controller
             });
         }
 
-        // Pagination dengan appends untuk mempertahankan query parameters
         $couriers = $query->paginate(10)->appends([
             'search' => $request->search,
             'level' => $request->level,
